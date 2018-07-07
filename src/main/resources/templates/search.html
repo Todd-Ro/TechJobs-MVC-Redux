@@ -10,10 +10,10 @@
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-    <form th:action="@{/search/results}">
+    <form th:action="@{/search/results}" th:object="${searchForm}">
         <h2>Search by:</h2>
 
-        <p>
+        <!-- <p>
             <span th:each="column : ${columns}">
                 <input
                     type="radio"
@@ -23,19 +23,27 @@
                     th:checked="${column.key}=='all'? 'true' : 'false'"/>
                 <label th:for="${column.key}" th:text="${column.value}"></label>
             </span>
-        </p>
+        </p> -->
 
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
+        <ul class="form-group">
+            <li th:each="field : ^{fields}">
+                <input type="radio" th:field="*{searchField}" th:value="${field}" th:checked="${field == searchField}"/>
+                <label th:for="${#ids.prev('searchField')}" th:text="${field.name}"></label>
+            </li>
+        </ul>
+
+        <div class="form-group">
+            <!-- <label for="searchTerm">Keyword:</label> -->
+            <!-- <input type="text" name="searchTerm" id="searchTerm" /> -->
+
+            <label th:for="keyword">Keyword</label>
+            <input class="form-control" th:field="*{keyword}" />
+        </div>
 
         <input type="submit" value="Search" />
     </form>
 
     <hr />
-
-    <!-- TODO #2 - Loop over jobs map to display all job fields -->
 
     <!--<table class="job-listing">
         <tr>
@@ -45,6 +53,8 @@
             <td th:each="valuePair : ${job}"><span th:text="${valuePair.value}">Dummy Entry</span></td>
         </tr>
     </table>-->
+
+    <!-- The job-table-set fragment is from the pre-OO version -->
     <div th:fragment="job-table-set">
         <h2 th:text="${#lists.size(jobs)} + ' Results'" th:if="${jobs} and ${jobs.size()}">No Results Yet</h2>
         <table th:each= "job : ${jobs}" class="job-listing">
@@ -55,6 +65,10 @@
             </tr>
         </table>
     </div>
+
+    <div th:replace="list-jobs :: jobs-list"></div>
+
+    <!-- The OO version has significantly different code. -->
 
 </div>
 
