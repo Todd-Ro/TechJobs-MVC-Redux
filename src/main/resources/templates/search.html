@@ -26,7 +26,7 @@
         </p> -->
 
         <ul class="form-group">
-            <li th:each="field : ^{fields}">
+            <li th:each="field : *{fields}">
                 <input type="radio" th:field="*{searchField}" th:value="${field}" th:checked="${field == searchField}"/>
                 <label th:for="${#ids.prev('searchField')}" th:text="${field.name}"></label>
             </li>
@@ -60,7 +60,7 @@
         <table th:each= "job : ${jobs}" class="job-listing">
             <tr th:each="valuePair : ${job}">
                 <td> <span th:text="${#strings.capitalizeWords(valuePair.key)}"> Dummy Label </span> </td>
-                <td> <a th:href="@{/list/jobs(column=${valuePair.key},value=${valuePair.value})}"
+                <td> <a th:href="@{/list/jobs(OOcolumn=${valuePair.key},value=${valuePair.value})}"
                         th:text="${#strings.capitalizeWords(valuePair.value)}"> Dummy Entry </a> </td>
             </tr>
         </table>

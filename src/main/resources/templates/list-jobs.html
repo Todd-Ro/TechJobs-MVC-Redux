@@ -10,9 +10,51 @@
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-    <!-- TODO #3 - Use the same list display from search.html -->
+    <div th:unless="${OOjobs} and ${OOjobs.size()}">
+        <h2>No Results</h2>
+    </div>
 
-    <div th:replace="search :: job-table-set"></div>
+    <!-- <div th:replace="search :: job-table-set"></div> -->
+    <!-- The OO version has significantly different code and creates a fragment rather than using one from
+            search. The created fragment is called "jobs-list" and contains other divs -->
+
+    <div th:fragment="jobs-list">
+
+        <div th:if="${OOjobs} and ${OOjobs.size()}">
+
+            <h3 th:text="${OOjobs.size() + ' Results(s)'}"></h3>
+
+            <div th:each="job : ${OOjobs}">
+
+                <table th:fragment="single-job" class="job-listing">
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${job.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Employer</th>
+                        <td th:text="${job.employer}"></td>
+                    </tr>
+                    <tr>
+                        <th>Location</th>
+                        <td th:text="${job.location}"></td>
+                    </tr>
+                    <tr>
+                        <th>Position Type</th>
+                        <td th:text="${job.positionType}"></td>
+                    </tr>
+                    <tr>
+                        <th>Skill</th>
+                        <td th:text="${job.coreCompetency}"></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
 </div>
 

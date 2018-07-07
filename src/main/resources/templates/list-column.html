@@ -10,11 +10,22 @@
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
+    <div th:unless="${items} and ${items.size()}">
+        <h2>No Results</h2>
+    </div>
+
     <div th:if="${items} and ${items.size()}">
+
+        <!-- The OO version uses name, while the old version uses value -->
+        <!-- <table>
+            <tr th:each="item, idx : ${items}" th:class="${idx.odd} ? 'odd'">
+                <td><a th:href="@{/list/jobs(column=${column},value=${item})}" th:text="${item}"></a></td>
+            </tr>
+        </table> -->
 
         <table>
             <tr th:each="item, idx : ${items}" th:class="${idx.odd} ? 'odd'">
-                <td><a th:href="@{/list/jobs(column=${column},value=${item})}" th:text="${item}"></a></td>
+                <td><a th:href="@{/list/OOjobs(OOcolumn=${OOcolumn},name=${item})}" th:text="${item}"></a></td>
             </tr>
         </table>
 

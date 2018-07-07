@@ -10,8 +10,12 @@
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
     <h2>View All</h2>
     <ul>
-        <li th:each="column : ${columns}">
-            <a th:href="@{/list/values(column=${column.key})}" th:text="${column.value}"></a>
+        <!-- <li th:each="column : ${columns}"> -->
+        <li th:each="field : ${fields}">
+            <!-- <a th:href="@{/list/values(column=${column.key})}" th:text="${column.value}"></a> -->
+
+            <!-- The OO version uses field instead of column.key and field.name instead of column.value -->
+            <a th:href="@{/list/values(OOcolumn=${field})}" th:text="${field.name}"></a>
         </li>
     </ul>
 

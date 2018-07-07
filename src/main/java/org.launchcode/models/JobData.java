@@ -123,7 +123,39 @@ public class JobData {
     /**
      * Read in data from a CSV file and store it in a list
      */
-    private static void loadData() {
+
+    public static CSVParser loadingParser() {
+        try {
+            Resource resource = new ClassPathResource(DATA_FILE);
+            InputStream is = resource.getInputStream();
+            Reader reader = new InputStreamReader(is);
+            CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(reader);
+            return parser;
+        } catch (IOException e) {
+        System.out.println("Failed to load job data");
+        e.printStackTrace();
+        return null;
+        }
+    }
+
+    public static List<CSVRecord> getRecords(CSVParser parser) {
+        try {
+            List<CSVRecord> records = parser.getRecords();
+            return records;
+        } catch (IOException e) {
+            System.out.println("Failed to load job data");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String[] getHeaders (CSVParser parser, List<CSVRecord> records) {
+        Integer numberOfColumns = records.get(0).size();
+        String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
+        return headers;
+    }
+
+    public static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
@@ -133,6 +165,12 @@ public class JobData {
         try {
 
             // Open the CSV file and set up pull out column header info and records
+            /**
+             *
+             * CSVParser parser = loadingParser();
+             * List<CSVRecord> records = getRecords(parser);
+             * String[] headers = getHeaders(parser, records);
+             */
             Resource resource = new ClassPathResource(DATA_FILE);
             InputStream is = resource.getInputStream();
             Reader reader = new InputStreamReader(is);
