@@ -28,8 +28,6 @@ public class SearchController {
         return "search";
     }
 
-    // TODO #1 - Create handler to process search request and display results
-
     @RequestMapping(value="results")
     public String displayResults(Model model, @RequestParam String keyword,
                                  // @RequestParam String searchType,

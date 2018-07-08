@@ -55,7 +55,8 @@
     </table>-->
 
     <!-- The job-table-set fragment is from the pre-OO version -->
-    <div th:fragment="job-table-set">
+    <!-- Preventing this fragment from being active code prevents the table from having links -->
+    <!-- <div th:fragment="job-table-set">
         <h2 th:text="${#lists.size(jobs)} + ' Results'" th:if="${jobs} and ${jobs.size()}">No Results Yet</h2>
         <table th:each= "job : ${jobs}" class="job-listing">
             <tr th:each="valuePair : ${job}">
@@ -64,7 +65,7 @@
                         th:text="${#strings.capitalizeWords(valuePair.value)}"> Dummy Entry </a> </td>
             </tr>
         </table>
-    </div>
+    </div> -->
 
     <div th:replace="list-jobs :: jobs-list"></div>
 
