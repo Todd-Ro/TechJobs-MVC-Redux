@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.13.RELEASE'
+        springBootVersion = '2.0.2.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -22,6 +22,7 @@ sourceCompatibility = 1.8
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'techjobs'
@@ -41,5 +42,5 @@ dependencies {
 }
 
 bootRun {
-    addResources = true
+    sourceResources sourceSets.main
 }

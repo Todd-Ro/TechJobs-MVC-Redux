@@ -86,10 +86,12 @@ public class ListController {
         //return "list-column";
     }
 
-    @RequestMapping(value = "jobs")
+    @RequestMapping(value = "OOjobs")
     public String listByColumnAndValue(Model model,
                                        //@RequestParam String column,
-                                       @RequestParam JobFieldType OOcolumn, @RequestParam String value, @RequestParam String name) {
+                                       @RequestParam JobFieldType OOcolumn,
+                                       //@RequestParam String value,
+                                       @RequestParam String name) {
 
         ArrayList<Job> OOjobs = OOjobData.findByColumnAndValue(OOcolumn, name);
         model.addAttribute("title", "Jobs with " + OOcolumn.getName() + ": " + name);
